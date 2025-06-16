@@ -1,0 +1,25 @@
+`timescale 1ns/1ps
+
+module tb_two_flipflop_sync;
+
+    reg clk = 0;
+    reg async_in = 0;
+    wire sync_out;
+
+    always #5 clk = ~clk;
+
+    two_flipflop_sync sync_inst (
+        .clk(clk),
+        .async_in(async_in),
+        .sync_out(sync_out)
+    );
+
+    initial begin
+     
+        #7 async_in = 1;
+        #10 async_in = 0;
+        #100 $finish;
+    end
+
+endmodule
+
